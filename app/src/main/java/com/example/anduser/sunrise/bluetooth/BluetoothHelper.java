@@ -15,6 +15,7 @@ public class BluetoothHelper {
 
     BluetoothAdapter bluetoothAdapter;
     OutputStream outputStream;
+    BluetoothDevice device;
 
     private BluetoothHelper() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -55,6 +56,9 @@ public class BluetoothHelper {
     }
 
     public void switchLight(boolean state) {
+        if (device == null) {
+            initBluetoothDevice();
+        }
         try {
             if (state) {
                 outputStream.write("light set on".getBytes());
@@ -64,6 +68,5 @@ public class BluetoothHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
